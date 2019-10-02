@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		B274D57C23437A2700596276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B274D57B23437A2700596276 /* AppDelegate.swift */; };
 		B274D57E23437A2700596276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B274D57D23437A2700596276 /* SceneDelegate.swift */; };
-		B274D58023437A2700596276 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B274D57F23437A2700596276 /* ViewController.swift */; };
+		B274D58023437A2700596276 /* ListerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B274D57F23437A2700596276 /* ListerViewController.swift */; };
 		B274D58323437A2700596276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B274D58123437A2700596276 /* Main.storyboard */; };
 		B274D58523437A2800596276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B274D58423437A2800596276 /* Assets.xcassets */; };
 		B274D58823437A2800596276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B274D58623437A2800596276 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B274D57823437A2700596276 /* LIST-er.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LIST-er.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B274D57823437A2700596276 /* LISTer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LISTer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B274D57B23437A2700596276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B274D57D23437A2700596276 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B274D57F23437A2700596276 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B274D57F23437A2700596276 /* ListerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListerViewController.swift; sourceTree = "<group>"; };
 		B274D58223437A2700596276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B274D58423437A2800596276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B274D58723437A2800596276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		B274D57923437A2700596276 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B274D57823437A2700596276 /* LIST-er.app */,
+				B274D57823437A2700596276 /* LISTer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,7 +58,7 @@
 			children = (
 				B274D57B23437A2700596276 /* AppDelegate.swift */,
 				B274D57D23437A2700596276 /* SceneDelegate.swift */,
-				B274D57F23437A2700596276 /* ViewController.swift */,
+				B274D57F23437A2700596276 /* ListerViewController.swift */,
 				B274D58123437A2700596276 /* Main.storyboard */,
 				B274D58423437A2800596276 /* Assets.xcassets */,
 				B274D58623437A2800596276 /* LaunchScreen.storyboard */,
@@ -84,7 +84,7 @@
 			);
 			name = "LIST-er";
 			productName = "LIST-er";
-			productReference = B274D57823437A2700596276 /* LIST-er.app */;
+			productReference = B274D57823437A2700596276 /* LISTer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B274D58023437A2700596276 /* ViewController.swift in Sources */,
+				B274D58023437A2700596276 /* ListerViewController.swift in Sources */,
 				B274D57C23437A2700596276 /* AppDelegate.swift in Sources */,
 				B274D57E23437A2700596276 /* SceneDelegate.swift in Sources */,
 			);
@@ -292,7 +292,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Parth.LIST-er";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LISTer;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -310,7 +310,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Parth.LIST-er";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LISTer;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
