@@ -11,10 +11,13 @@ import UIKit
 class ListerViewController: UITableViewController {
 
     var itemArray = ["Option1", "Option2", "Option3"]
-
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if let items = defaults.array(forKey: "listItemArray") as?  [String]{
+            itemArray = items
+        }
     }
     
     //MARK: Tableview datasource method
@@ -52,6 +55,7 @@ class ListerViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             self.itemArray.append(textField.text!)
+            self.defaults.set(self.itemArray, forKey: "listItemArray " )
             self.tableView.reloadData()
         }
         alert.addTextField { ( alertTextField) in
