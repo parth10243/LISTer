@@ -10,14 +10,14 @@ import UIKit
 
 class ListerViewController: UITableViewController {
 
-    let itemArray = ["Option1", "Option2", "Option3"]
+    var itemArray = ["Option1", "Option2", "Option3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    //MARK :  Tableview datasource method
+    //MARK: Tableview datasource method
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
@@ -29,7 +29,7 @@ class ListerViewController: UITableViewController {
         return itemArray.count
     }
      
-    //MARK : Onclick of a cell
+    //MARK: Onclick of a cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          
         if (tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark){
@@ -41,6 +41,31 @@ class ListerViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath , animated: true)
     }
+    
+    //MARK: Add bar button
 
+    
+    @IBAction func addBarButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new list", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { ( alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil )
+    
+    
+    }
+    
+    
+    
 }
 
