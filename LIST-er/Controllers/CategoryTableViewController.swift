@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
     
-    var categoryArray = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    var categoryArray : Results<Category>?
+    let realm = try! Realm()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategoryData()
@@ -25,10 +26,9 @@ class CategoryTableViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add ", style: .default) { (action) in
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             newCategory.name = textField.text!
-            self.categoryArray.append(newCategory)
-            self.saveCategoryData()
+            self.save(category: newCategory)
         }
         alert.addTextField { ( alertTextField) in
             alertTextField.placeholder = "Add a new category"
@@ -43,12 +43,12 @@ class CategoryTableViewController: UITableViewController {
     //MARK: TableView Data source methods
      
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        return categoryArray?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categoryArray[indexPath.row].name
+        cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No category added yet"
         return cell
         
     }
@@ -61,29 +61,27 @@ class CategoryTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ListerViewController
         if let indexpath = tableView.indexPathForSelectedRow{
-            destinationVC.selectedCategory = categoryArray[indexpath.row]
+            destinationVC.selectedCategory = categoryArray?[indexpath.row]
             
         }
     }
     
     //MARK: Data manipulation method
     
-    func saveCategoryData(){
+    func save(category : Category){
         
         do{
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         }catch{
             print("Error in saving context : \(error)")
         }
         tableView.reloadData()
     }
     
-    func loadCategoryData(with request : NSFetchRequest<Category> = Category.fetchRequest()){
-        do{
-            try categoryArray =  context.fetch(request)
-        }catch{
-            print("Error in loading category data \(error)")
-        }
+    func loadCategoryData(){
+        categoryArray = realm.objects(Category.self)
         tableView.reloadData()
         
     }
