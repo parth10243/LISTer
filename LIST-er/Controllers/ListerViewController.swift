@@ -8,12 +8,14 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ListerViewController: SwipeTableViewController {
     
+    @IBOutlet weak var searchBarOutlet: UISearchBar!
     let realm = try! Realm()
     var itemResults: Results<Item>?
-    let dataFilePath = FileManager.default.urls(for:  .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//    let dataFilePath = FileManager.default.urls(for:  .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     var selectedCategory : Category? {
         didSet{
             loadItems()
@@ -24,6 +26,37 @@ class ListerViewController: SwipeTableViewController {
         super.viewDidLoad()
         print(FileManager.default.urls(for:  .documentDirectory, in: .userDomainMask))
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        if let colourHex = selectedCategory?.rowColour{
+//            guard let navbar = navigationController?.navigationBar else {
+//                fatalError("Navigation error doesnt exist")
+//            }
+//            navbar.barTintColor = UIColor(hexString: colourHex)
+//        }
+        guard let navBar = navigationController?.navigationBar else {fatalError("Navigation Controller doesn't exist.")}
+        let colour = selectedCategory!.rowColour
+//        if let colour = selectedCategory?.rowColour {
+//
+//               if #available(iOS 13.0, *) {
+//                   let app = UINavigationBarAppearance().self
+//
+//                   app.backgroundColor = UIColor(hexString: colour)
+//
+//                   navBar.standardAppearance = app
+//                   navBar.compactAppearance = app
+//                   navBar.scrollEdgeAppearance = app
+//
+//               } else {
+//                   navBar.barTintColor = UIColor(hexString: colour)
+//               }
+            title = selectedCategory!.name
+            searchBarOutlet.barTintColor = UIColor(hexString: colour)
+            navBar.tintColor = ContrastColorOf(UIColor(hexString: colour)!, returnFlat: true)
+            navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(UIColor(hexString: colour)! , returnFlat: true)]
+           
     }
     
     //MARK: Tableview datasource method
@@ -33,10 +66,15 @@ class ListerViewController: SwipeTableViewController {
         if let item = itemResults?[indexPath.row]{
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
+            if let colour = UIColor(hexString: selectedCategory!.rowColour)?.darken(byPercentage: CGFloat(indexPath.row)/CGFloat(itemResults!.count)){
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour , returnFlat: true)
+            }
         }else{
             cell.textLabel?.text = "No Items added"
         }
         return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
