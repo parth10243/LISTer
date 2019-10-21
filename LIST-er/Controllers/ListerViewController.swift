@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ListerViewController: UITableViewController {
+class ListerViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     var itemResults: Results<Item>?
@@ -23,12 +23,13 @@ class ListerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for:  .documentDirectory, in: .userDomainMask))
+        tableView.rowHeight = 80.0
     }
     
     //MARK: Tableview datasource method
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = itemResults?[indexPath.row]{
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
@@ -53,7 +54,7 @@ class ListerViewController: UITableViewController {
                 print("Error in updating done property \(error)")
             }
         }
-        tableView.reloadData()
+        loadItems()
         tableView.deselectRow(at: indexPath , animated: true)
     }
     
@@ -98,6 +99,19 @@ class ListerViewController: UITableViewController {
     func loadItems(){
         itemResults = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
+    }
+
+    //MARK: Item deletion methods
+    override func updateModel(at indexPath: IndexPath) {
+        if let itemToDelete = itemResults?[indexPath.row]{
+            do{
+                try realm.write {
+                    realm.delete(itemToDelete)
+                }
+            }catch{
+                print("Error in deleting error \(error)")
+            }
+        }
     }
     
 }
